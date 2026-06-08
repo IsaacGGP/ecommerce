@@ -2,8 +2,8 @@ package org.isaac.com.ecommers.controllers;
 
 import jakarta.validation.Valid;
 import org.isaac.com.ecommers.models.dto.CreateUserRequest;
-import org.isaac.com.ecommers.models.dto.LoginRequestDTO;
-import org.isaac.com.ecommers.models.dto.LoginResponseDTO;
+import org.isaac.com.ecommers.models.dto.LoginRequest;
+import org.isaac.com.ecommers.models.dto.LoginResponse;
 import org.isaac.com.ecommers.models.dto.UserResponse;
 import org.isaac.com.ecommers.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -32,8 +32,8 @@ public class AuthController {
 
     //Controller Login
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest){
-        LoginResponseDTO response = userService.loginUser(loginRequest);
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+        LoginResponse response = userService.loginUser(loginRequest);
         return ResponseEntity.ok(response);
     }
 }

@@ -10,9 +10,7 @@ import org.isaac.com.ecommers.security.JwtService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -60,18 +58,6 @@ public class UserService {
         return mapToResponse(saveUser); //cambio a mapToRespon
     }
 
-    public LoginResponseDTO loginUser(LoginRequestDTO loginRequest) {
-        UserEntity entity = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(
-                () -> new InvalidCredentialsException("Invalid credentials")
-        );
-        if (!passwordEncoder.matches(
-                loginRequest.getPassword(), entity.getPassword())) {
-            throw new InvalidCredentialsException("Invalid credentials");
-        }
-        String token = jwtService.generateToken(entity.getEmail());
-        return new LoginResponseDTO(token, "Login successful");
-    }
-
     //Seguimiento del CRUD
     public UserResponse findById(Long id){
         UserEntity entity = userRepository.findById(id).orElseThrow(() ->
@@ -99,9 +85,9 @@ public class UserService {
 
     //Eliminar Usuario
     public void deleteUser(Long id){
-      UserEntity entity = userRepository.findById(id).orElseThrow(() ->
-              new UserNotFoundException("User not found"));
-      userRepository.delete(entity);
+        UserEntity entity = userRepository.findById(id).orElseThrow(() ->
+                new UserNotFoundException("User not found"));
+        userRepository.delete(entity);
     }
 
     //Obtener todos los usuarios
@@ -114,5 +100,18 @@ public class UserService {
         }
         return usersSave;*/
         return userRepository.findAll().stream().map(this::mapToResponse).toList();
+    }
+
+    //Login
+    public LoginResponse loginUser(LoginRequest loginRequest) {
+        UserEntity entity = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(
+                () -> new InvalidCredentialsException("Invalid credentials")
+        );
+        if (!passwordEncoder.matches(
+                loginRequest.getPassword(), entity.getPassword())) {
+            throw new InvalidCredentialsException("Invalid credentials");
+        }
+        String token = jwtService.generateToken(entity.getEmail());
+        return new LoginResponse(token, "Login successful");
     }
 }

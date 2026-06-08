@@ -1,13 +1,13 @@
 package org.isaac.com.ecommers.models.dto;
 
-public class LoginResponseDTO {
+public class LoginResponse {
     private String token;
     private String message;
 
-    public LoginResponseDTO() {
+    public LoginResponse() {
     }
 
-    public LoginResponseDTO(String token, String message) {
+    public LoginResponse(String token, String message) {
         this.token = token;
         this.message = message;
     }

@@ -11,6 +11,14 @@ public class UpdateUserRequest {
     @NotBlank
     private String email;
 
+    public UpdateUserRequest() {
+    }
+
+    public UpdateUserRequest(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public String getName() {
         return name;
     }
