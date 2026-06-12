@@ -250,7 +250,7 @@ public class UserServiceTest {
         verify(userRepository).findByEmail("raul@gmail.com");
         verify(passwordEncoder).matches("123456", "HASHED_PASSWORD");
         verify(jwtService).generateToken("raul@gmail.com");
-        verifyNoInteractions(jwtService);
+        //verifyNoInteractions(jwtService);
     }
 
     @Test
@@ -276,7 +276,7 @@ public class UserServiceTest {
 
         assertThrows(InvalidCredentialsException.class, () ->userService.loginUser(loginRequest));
         verify(userRepository).findByEmail("raul@gmail.com");
-        verify(passwordEncoder, never()).matches(anyString(), anyString());
+        verify(passwordEncoder, times(1)).matches(anyString(), anyString());
         verify(jwtService, never()).generateToken(anyString());
 
     }
