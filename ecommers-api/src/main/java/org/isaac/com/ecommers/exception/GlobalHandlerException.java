@@ -12,9 +12,8 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalHandlerException {
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex){
-        Map<String, String> error = new HashMap<>();
-        error.put("message", ex.getMessage());
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
@@ -31,16 +30,14 @@ public class GlobalHandlerException {
     }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<Map<String, String>> emailAlreadyExistException(EmailAlreadyExistsException ex){
-        Map<String, String> error = new HashMap<>();
-        error.put("message", ex.getMessage());
+    public ResponseEntity<ErrorResponse> emailAlreadyExistException(EmailAlreadyExistsException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity<Map<String, String>>  invalidCredentialsException(InvalidCredentialsException ex){
-        Map<String, String> error = new HashMap<>();
-        error.put("message", ex.getMessage());
+    public ResponseEntity<ErrorResponse>  invalidCredentialsException(InvalidCredentialsException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
 

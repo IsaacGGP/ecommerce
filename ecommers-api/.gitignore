@@ -34,3 +34,6 @@ build/
 
 ### Properties ###
 application.properties
+
+## Reportes cobertura ##
+reportes cobertura

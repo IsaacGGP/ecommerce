@@ -12,13 +12,6 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.function.Function;
-/*
-Flujo JWT Service:
-generateToken()✅
-extractUsername()✅
-extractExpiration()✅
-extractClaims()✅
-isTokenValid()✅*/
 
 @Service
 public class JwtService {
